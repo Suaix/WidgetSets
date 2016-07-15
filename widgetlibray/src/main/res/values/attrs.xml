@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VerticalSlideLayout">
+        <attr name="clickExpandSmallItem" format="boolean" />
+        <attr name="itemHeight" format="dimension" />
+        <!-- 最后可见且不展开的item的个数 -->
+        <attr name="lastVisiableCount" format="integer"/>
+        <!-- 最后还剩几个时触发加载更多操作 -->
+        <attr name="loadMoreCount" format="integer"/>
+    </declare-styleable>
+</resources>
