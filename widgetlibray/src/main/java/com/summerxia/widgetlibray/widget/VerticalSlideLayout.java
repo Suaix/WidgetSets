@@ -337,12 +337,20 @@ public class VerticalSlideLayout extends FrameLayout {
         //3.将upViews中的view向上进行位移，
         for (int n = 0; n < upViews.size(); n++) {
             View upView = upViews.get(n);
-            upView.setTranslationY(ViewHelper.getTranslationY(upView) - downPosition * bigTransY);
+            if (n == upViews.size() - 1) {
+                ViewPropertyAnimator anim = ViewPropertyAnimator.animate(upView).translationY(ViewHelper.getTranslationY(upView) - downPosition * bigTransY).setDuration(animationDuration);
+                anim.start();
+            } else {
+                upView.setTranslationY(ViewHelper.getTranslationY(upView) - downPosition * bigTransY);
+            }
         }
         //4.将点击view的之上且尚未展开的view进行位移;
         for (int j = 0; j < downPosition - 1; j++) {
             View middleView = downViews.get(j);
-            middleView.setTranslationY(ViewHelper.getTranslationY(middleView) - 2 * bigTransY - (downPosition - 2) * smallTransY);
+//            ViewPropertyAnimator anim = ViewPropertyAnimator.animate(middleView).translationY(ViewHelper.getTranslationY(middleView) - 2 * bigTransY - (downPosition - 2) * smallTransY).setDuration(animationDuration);
+//            anim.start();
+//            middleView.setTranslationY(ViewHelper.getTranslationY(middleView) - 2 * bigTransY - (downPosition - 2) * smallTransY);
+            middleView.setTranslationY(ViewHelper.getTranslationY(middleView) - (downPosition - j) * bigTransY - j * smallTransY);
         }
         //5.将点击view之上且尚未展开的view添加到upViews里，并从downViews中移除；
         for (int m = 0; m < downPosition; m++) {
@@ -350,6 +358,9 @@ public class VerticalSlideLayout extends FrameLayout {
             downViews.remove(0);
         }
         currentViewPosition += downPosition;
+        if (currentViewPosition >= dataList.size() - loadMoreCount){
+            handler.sendEmptyMessageDelayed(0,animationDuration);
+        }
     }
 
     private Rect getHitRect(Rect topRect, View view) {
@@ -443,7 +454,7 @@ public class VerticalSlideLayout extends FrameLayout {
         //如果滑动到倒数第三个位置则加载更多
         if (currentViewPosition == dataList.size() - loadMoreCount) {
             //延迟调用加载更多，保证动画完成后计算到准确的位移
-            handler.sendEmptyMessageDelayed(0, animationDuration*2);
+            handler.sendEmptyMessageDelayed(0, animationDuration * 2);
         }
     }
 

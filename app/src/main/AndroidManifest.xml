@@ -20,6 +20,9 @@
         <activity
             android:name=".VerticalSlideActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".NomarlDistributionActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

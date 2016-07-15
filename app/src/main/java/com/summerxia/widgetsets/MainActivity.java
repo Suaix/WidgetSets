@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewById(R.id.bt_vertical_slide_layout).setOnClickListener(this);
+        findViewById(R.id.bt_nomarl_distribution).setOnClickListener(this);
     }
 
     @Override
@@ -19,6 +20,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.bt_vertical_slide_layout:
                 startActivity(new Intent(this, VerticalSlideActivity.class));
+                break;
+            case R.id.bt_nomarl_distribution:
+                startActivity(new Intent(this, NomarlDistributionActivity.class));
                 break;
         }
     }
